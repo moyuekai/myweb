@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI与生活的息息相关</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 引入Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- Google字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6', // 蓝色作为主色调，代表科技与信任
+                        secondary: '#10B981', // 绿色作为辅助色，代表进步与成长
+                        accent: '#8B5CF6', // 紫色作为强调色，代表创新
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .bg-blur {
+                backdrop-filter: blur(8px);
+            }
+        }
+    </style>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .stats-item {
+            transition: all 0.3s ease;
+        }
+        
+        .stats-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3B82F6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(139,92,246,0.9) 100%);
+        }
+        
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .section-fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-inter bg-light text-dark antialiased">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 bg-blur shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <i class="fa fa-brain text-primary text-2xl"></i>
+                <span class="text-xl font-bold bg-gradient-to-r from-primary to-accent text-gradient">AI生活</span>
+            </a>
+            
+            <!-- 桌面导航 -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link font-medium hover:text-primary transition-colors">首页</a>
+                <a href="#applications" class="nav-link font-medium hover:text-primary transition-colors">应用领域</a>
+                <a href="#examples" class="nav-link font-medium hover:text-primary transition-colors">生活实例</a>
+                <a href="#stats" class="nav-link font-medium hover:text-primary transition-colors">数据统计</a>
+                <a href="#future" class="nav-link font-medium hover:text-primary transition-colors">未来展望</a>
+            </nav>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-toggle" class="md:hidden text-dark focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="#home" class="font-medium hover:text-primary transition-colors py-2">首页</a>
+                <a href="#applications" class="font-medium hover:text-primary transition-colors py-2">应用领域</a>
+                <a href="#examples" class="font-medium hover:text-primary transition-colors py-2">生活实例</a>
+                <a href="#stats" class="font-medium hover:text-primary transition-colors py-2">数据统计</a>
+                <a href="#future" class="font-medium hover:text-primary transition-colors py-2">未来展望</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://picsum.photos/id/1/1920/1080" alt="AI与现代生活" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold text-white mb-6 leading-tight text-shadow animate-[fadeIn_1s_ease-in]">
+                AI与生活的<br class="md:hidden" />息息相关
+            </h1>
+            <p class="text-[clamp(1rem,2vw,1.25rem)] text-white/90 max-w-3xl mx-auto mb-10 animate-[fadeIn_1.2s_ease-in]">
+                从智能助手到医疗诊断，从自动驾驶到个性化推荐，人工智能正悄然改变着我们生活的方方面面
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-[fadeIn_1.4s_ease-in]">
+                <a href="#applications" class="bg-white text-primary font-medium px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    探索应用
+                </a>
+                <a href="#future" class="bg-transparent border-2 border-white text-white font-medium px-8 py-3 rounded-full hover:bg-white/10 transition-all transform hover:-translate-y-1">
+                    未来展望
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <a href="#applications" aria-label="向下滚动">
+                <i class="fa fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- 应用领域部分 -->
+    <section id="applications" class="py-20 bg-white section-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">AI在生活中的应用领域</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">人工智能不再是科幻电影中的概念，它已经深入到我们日常生活的各个领域，为我们带来便利与革新</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 应用卡片1：智能家居 -->
+                <div class="feature-card bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fa fa-home text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">智能家居</h3>
+                    <p class="text-gray-600">AI驱动的智能家居系统能够学习用户习惯，自动调节温度、照明和家电，提供个性化的居住体验，同时节约能源。</p>
+                </div>
+                
+                <!-- 应用卡片2：医疗健康 -->
+                <div class="feature-card bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fa fa-heartbeat text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">医疗健康</h3>
+                    <p class="text-gray-600">AI辅助诊断系统能够分析医学影像，帮助医生更早发现疾病；健康监测应用则能实时追踪用户健康数据，提供个性化建议。</p>
+                </div>
+                
+                <!-- 应用卡片3：交通出行 -->
+                <div class="feature-card bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl">
+                    <div class="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fa fa-car text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">交通出行</h3>
+                    <p class="text-gray-600">从智能导航避开拥堵，到自动驾驶技术的发展，AI正在改变我们的出行方式，使交通更安全、高效和环保。</p>
+                </div>
+                
+                <!-- 应用卡片4：教育学习 -->
+                <div class="feature-card bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl">
+                    <div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fa fa-graduation-cap text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">教育学习</h3>
+                    <p class="text-gray-600">AI教育平台能够根据学生的学习进度和风格提供个性化教学内容，智能辅导系统则能即时解答学生疑问。</p>
+                </div>
+                
+                <!-- 应用卡片5：娱乐媒体 -->
+                <div class="feature-card bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl">
+                    <div class="w-14 h-14 bg-secondary/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fa fa-film text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">娱乐媒体</h3>
+                    <p class="text-gray-600">AI算法分析用户偏好，提供精准的影视、音乐推荐；同时，AI还能创作艺术作品、生成特效，丰富娱乐体验。</p>
+                </div>
+                
+                <!-- 应用卡片6：购物消费 -->
+                <div class="feature-card bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl">
+                    <div class="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center mb-5">
+                        <i class="fa fa-shopping-cart text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">购物消费</h3>
+                    <p class="text-gray-600">智能推荐系统帮助用户发现感兴趣的商品，AI客服提供24/7在线服务，虚拟试衣间则让线上购物体验更直观。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生活实例部分 -->
+    <section id="examples" class="py-20 bg-gray-50 section-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">AI融入日常生活的实例</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">在一天中的每个时刻，AI都在默默地为我们提供服务，让生活更加便捷</p>
+            </div>
+            
+            <div class="relative">
+                <!-- 时间线 -->
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/20"></div>
+                
+                <!-- 时间线项目1：早晨 -->
+                <div class="mb-12 md:mb-24 relative">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                            <h3 class="text-xl font-semibold mb-2">早晨唤醒</h3>
+                            <p class="text-gray-600">智能闹钟根据你的睡眠周期，在浅睡阶段唤醒你，让你感觉更加清爽。智能音箱播报当天天气和新闻，帮你规划一天行程。</p>
+                        </div>
+                        
+                        <div class="md:w-12 relative order-1 md:order-2">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto shadow-lg z-10 relative">
+                                <i class="fa fa-sun-o"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                            <img src="https://picsum.photos/id/1060/600/400" alt="早晨使用智能设备" class="rounded-lg shadow-md w-full h-48 object-cover" />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 时间线项目2：通勤 -->
+                <div class="mb-12 md:mb-24 relative">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 order-2 hidden md:block">
+                            <img src="https://picsum.photos/id/1071/600/400" alt="智能导航系统" class="rounded-lg shadow-md w-full h-48 object-cover" />
+                        </div>
+                        
+                        <div class="md:w-12 relative order-1">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto shadow-lg z-10 relative">
+                                <i class="fa fa-location-arrow"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                            <h3 class="text-xl font-semibold mb-2">通勤途中</h3>
+                            <p class="text-gray-600">导航应用实时分析交通状况，为你规划最优路线。语音助手帮助你接打电话、发送信息，让驾驶更安全。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 时间线项目3：工作学习 -->
+                <div class="mb-12 md:mb-24 relative">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-6 md:mt-0">
+                            <h3 class="text-xl font-semibold mb-2">工作学习</h3>
+                            <p class="text-gray-600">AI辅助工具帮你自动生成文档摘要、翻译外文资料，智能会议系统实时记录会议内容并生成纪要，提高工作效率。</p>
+                        </div>
+                        
+                        <div class="md:w-12 relative order-1 md:order-2">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto shadow-lg z-10 relative">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 md:pl-12 order-3 hidden md:block">
+                            <img src="https://picsum.photos/id/180/600/400" alt="AI辅助工作" class="rounded-lg shadow-md w-full h-48 object-cover" />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 时间线项目4：晚上休闲 -->
+                <div class="relative">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 order-2 hidden md:block">
+                            <img src="https://picsum.photos/id/239/600/400" alt="AI推荐娱乐内容" class="rounded-lg shadow-md w-full h-48 object-cover" />
+                        </div>
+                        
+                        <div class="md:w-12 relative order-1">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto shadow-lg z-10 relative">
+                                <i class="fa fa-moon-o"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/2 md:pl-12 order-3 mt-6 md:mt-0">
+                            <h3 class="text-xl font-semibold mb-2">晚上休闲</h3>
+                            <p class="text-gray-600">流媒体平台根据你的观看历史推荐电影和剧集，智能音箱播放你喜欢的音乐，健康应用分析你的睡眠质量并给出改善建议。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据统计部分 -->
+    <section id="stats" class="py-20 bg-white section-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">AI普及数据统计</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">数据表明，AI技术正在迅速普及，成为人们日常生活中不可或缺的一部分</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <!-- 图表 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">AI应用领域普及率</h3>
+                    <div class="h-80">
+                        <canvas id="aiAdoptionChart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- 统计数字 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="stats-item bg-gray-50 p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-primary mb-2 counter" data-target="78">0</div>
+                        <p class="text-gray-600">使用智能语音助手的用户比例（%）</p>
+                    </div>
+                    
+                    <div class="stats-item bg-gray-50 p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-secondary mb-2 counter" data-target="45">0</div>
+                        <p class="text-gray-600">拥有智能家居设备的家庭比例（%）</p>
+                    </div>
+                    
+                    <div class="stats-item bg-gray-50 p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-accent mb-2 counter" data-target="62">0</div>
+                        <p class="text-gray-600">依赖AI推荐系统的用户比例（%）</p>
+                    </div>
+                    
+                    <div class="stats-item bg-gray-50 p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl font-bold text-primary mb-2 counter" data-target="91">0</div>
+                        <p class="text-gray-600">认为AI改善了生活的用户比例（%）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 未来展望部分 -->
+    <section id="future" class="py-20 bg-gradient-to-br from-primary/5 to-accent/5 section-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold mb-4">AI与生活的未来展望</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">随着技术的不断进步，AI将在更多方面融入我们的生活，创造更美好的未来</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div>
+                    <img src="https://picsum.photos/id/160/800/600" alt="未来AI生活" class="rounded-xl shadow-lg w-full h-auto" />
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-4 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-rocket text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">更智能的个性化服务</h3>
+                            <p class="text-gray-600">未来的AI系统将更加了解用户需求，提供量身定制的服务，从健康管理到学习计划，全方位满足个人需求。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-4 w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-handshake-o text-secondary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">人机协作更加紧密</h3>
+                            <p class="text-gray-600">AI将成为人类的得力助手，在工作和生活中与人类无缝协作，共同解决复杂问题，提高创造力和生产力。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="mt-1 mr-4 w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+                            <i class="fa fa-globe text-accent"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">解决全球性挑战</h3>
+                            <p class="text-gray-600">AI技术将在气候变化、疾病防控、资源分配等全球性问题上发挥重要作用，帮助人类创造更可持续的未来。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 互动部分 -->
+            <div class="mt-20 bg-white rounded-2xl shadow-xl p-8 md:p-10 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-6 text-center">你认为AI将如何改变未来生活？</h3>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors cursor-pointer">
+                        <input type="radio" name="ai-opinion" id="opinion1" class="mr-4 h-5 w-5 text-primary">
+                        <label for="opinion1" class="cursor-pointer">AI将大幅提高生活效率，节省更多时间</label>
+                    </div>
+                    
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors cursor-pointer">
+                        <input type="radio" name="ai-opinion" id="opinion2" class="mr-4 h-5 w-5 text-primary">
+                        <label for="opinion2" class="cursor-pointer">AI将在医疗健康领域取得突破，延长人类寿命</label>
+                    </div>
+                    
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors cursor-pointer">
+                        <input type="radio" name="ai-opinion" id="opinion3" class="mr-4 h-5 w-5 text-primary">
+                        <label for="opinion3" class="cursor-pointer">AI将创造更多新的就业机会和商业模式</label>
+                    </div>
+                    
+                    <div class="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors cursor-pointer">
+                        <input type="radio" name="ai-opinion" id="opinion4" class="mr-4 h-5 w-5 text-primary">
+                        <label for="opinion4" class="cursor-pointer">AI将帮助解决环境和能源问题</label>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="bg-primary hover:bg-primary/90 text-white font-medium px-8 py-3 rounded-full shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1">
+                        提交观点
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fa fa-brain text-primary text-2xl"></i>
+                        <span class="text-xl font-bold">AI生活</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">探索人工智能如何改变我们的日常生活，创造更美好的未来。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+                        <li><a href="#applications" class="text-gray-400 hover:text-white transition-colors">应用领域</a></li>
+                        <li><a href="#examples" class="text-gray-400 hover:text-white transition-colors">生活实例</a></li>
+                        <li><a href="#stats" class="text-gray-400 hover:text-white transition-colors">数据统计</a></li>
+                        <li><a href="#future" class="text-gray-400 hover:text-white transition-colors">未来展望</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">AI资源</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI新闻</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">学习资源</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI工具</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">研究报告</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">行业动态</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">订阅更新</h4>
+                    <p class="text-gray-400 mb-4">获取最新的AI资讯和应用案例</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 AI与生活. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow');
+                navbar.classList.remove('py-3');
+            } else {
+                navbar.classList.add('py-3');
+                navbar.classList.remove('py-2', 'shadow');
+            }
+        });
+        
+        // 滚动动画
+        function checkFade() {
+            const fadeElements = document.querySelectorAll('.section-fade-in');
+            
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+        
+        // 数字计数动画
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // 动画速度
+            
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    
+                    // 计算增量
+                    const inc = target / speed;
+                    
+                    // 如果计数小于目标，继续更新
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target + '%';
+                    }
+                };
+                
+                updateCount();
+            });
+        }
+        
+        // 当统计部分进入视图时启动计数动画
+        const statsSection = document.getElementById('stats');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(statsSection);
+        
+        // AI应用领域普及率图表
+        const ctx = document.getElementById('aiAdoptionChart').getContext('2d');
+        const aiAdoptionChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['智能助手', '智能家居', '在线推荐', '导航服务', '医疗健康', '教育学习'],
+                datasets: [{
+                    label: '用户普及率（%）',
+                    data: [78, 45, 82, 75, 32, 48],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(16, 185, 129, 0.7)',
+                        'rgba(139, 92, 246, 0.7)',
+                        'rgba(245, 158, 11, 0.7)',
+                        'rgba(239, 68, 68, 0.7)',
+                        'rgba(6, 182, 212, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(139, 92, 246, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(6, 182, 212, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
